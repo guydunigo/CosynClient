@@ -7,47 +7,60 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { Keyboard } from './keyboard';
 
-import { KBS } from './mock-kbs';
-
-let kbs = KBS;
-
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
 @Injectable()
 export class ConfigKeyboardService {
-  private dbUrl = 'localhost:4300/api/config';
+  private kbsUrl = 'http://localhost:4300/api/config';
 
   constructor(
     private http: HttpClient
   ) { }
 
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      // console.error(error); // log to console instead
+
+      return of(result as T);
+    };
+  }
+
   getKeyboards(): Observable<Keyboard[]> {
-    return of(kbs);
+    return this.http.get<Keyboard[]>(this.kbsUrl)
+      .pipe(
+      catchError(this.handleError('getKeyboards', []))
+      );
   }
 
   getKeyboard(id: string): Observable<Keyboard> {
-    return of(kbs.find(kb => kb.id === id));
+    const url = `${this.kbsUrl}/${id}`;
+    return this.http.get<Keyboard>(url).pipe(
+      catchError(this.handleError<Keyboard>(`getKeyboard id=${id}`))
+    );
   }
 
   updateKeyboard(keyboard: Keyboard): Observable<any> {
-    kbs = kbs.map(kb => kb.id === keyboard.id ? keyboard : kb);
-    return of(kbs);
+    return this.http.put(this.kbsUrl, keyboard, httpOptions).pipe(
+      catchError(this.handleError<any>('updateKeyboard'))
+    );
   }
 
   addKeyboard(keyboard: Keyboard): Observable<Keyboard> {
-    keyboard.id = keyboard.name;
-    kbs.push(keyboard);
-    return of(keyboard);
+    return this.http.post<Keyboard>(this.kbsUrl, keyboard, httpOptions)
+      .pipe(
+      catchError(this.handleError<Keyboard>('addKeyboard'))
+      );
   }
 
   deleteKeyboard(keyboard: Keyboard | string): Observable<Keyboard> {
     const id = typeof Keyboard === 'string' ? keyboard as string : (keyboard as Keyboard).id;
 
-    const del = kbs.find(kb => kb.id === id);
+    const url = `${this.kbsUrl}/${id}`;
 
-    kbs = kbs.filter(kb => kb !== del);
-    return of(del);
+    return this.http.delete<Keyboard>(url, httpOptions).pipe(
+      catchError(this.handleError<Keyboard>('deleteKeyboard'))
+    );
   }
 }
