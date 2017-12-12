@@ -11,5 +11,4 @@ export class KeysListComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

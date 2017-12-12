@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 
 import { AppComponent } from './app.component';
@@ -10,6 +12,7 @@ import { KeysListComponent } from './keys-list/keys-list.component';
 import { KeyDetailComponent } from './key-detail/key-detail.component';
 
 import { KeyboardService } from './keyboard.service';
+import { FormGroupName } from '@angular/forms/src/directives/reactive_directives/form_group_name';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,9 @@ import { KeyboardService } from './keyboard.service';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule
   ],
   providers: [KeyboardService],
   bootstrap: [AppComponent]
