@@ -1,5 +1,5 @@
 export class Key {
-    id: number;
+    id: string;
     name: string;
     src: string;
     enabled: boolean;

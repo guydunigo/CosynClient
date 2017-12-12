@@ -23,6 +23,15 @@ export class KeyboardsListComponent implements OnInit {
       .subscribe(kbs => this.keyboards = kbs);
   }
 
+  add(name: string): void {
+    name = name.trim();
+    if (!name) { return; }
+    this.kbService.addKeyboard({ name } as Keyboard)
+      .subscribe(kb => {
+        this.keyboards.push(kb);
+      });
+  }
+
   delete(kb: Keyboard): void {
     this.keyboards = this.keyboards.filter(k => k !== kb);
     this.kbService.deleteKeyboard(kb).subscribe();

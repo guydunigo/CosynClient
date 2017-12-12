@@ -12,6 +12,7 @@ import { KeysListComponent } from './keys-list/keys-list.component';
 import { KeyDetailComponent } from './key-detail/key-detail.component';
 
 import { KeyboardService } from './keyboard.service';
+import { KeyService } from './key.service';
 import { FormGroupName } from '@angular/forms/src/directives/reactive_directives/form_group_name';
 
 @NgModule({
@@ -28,7 +29,7 @@ import { FormGroupName } from '@angular/forms/src/directives/reactive_directives
     HttpClientModule,
     FormsModule
   ],
-  providers: [KeyboardService],
+  providers: [KeyboardService, KeyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

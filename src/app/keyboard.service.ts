@@ -21,25 +21,27 @@ export class KeyboardService {
     return of(kbs);
   }
 
-  getKeyboard(id: number): Observable<Keyboard> {
+  getKeyboard(id: string): Observable<Keyboard> {
     return of(kbs.find(kb => kb.id === id));
   }
 
   updateKeyboard(keyboard: Keyboard): Observable<any> {
-    return of(kbs.map(kb => kb.id === keyboard.id ? keyboard : kb));
+    kbs = kbs.map(kb => kb.id === keyboard.id ? keyboard : kb);
+    return of(kbs);
   }
 
   addKeyboard(keyboard: Keyboard): Observable<Keyboard> {
-    KBS.push(keyboard);
+    keyboard.id = keyboard.name;
+    kbs.push(keyboard);
     return of(keyboard);
   }
 
-  deleteKeyboard(keyboard: Keyboard | number): Observable<Keyboard> {
-    const id = typeof Keyboard === 'number' ? keyboard as number : (keyboard as Keyboard).id;
+  deleteKeyboard(keyboard: Keyboard | string): Observable<Keyboard> {
+    const id = typeof Keyboard === 'string' ? keyboard as string : (keyboard as Keyboard).id;
 
-    const del = KBS.find(kb => kb.id === id);
+    const del = kbs.find(kb => kb.id === id);
 
-    kbs = KBS.filter(kb => kb !== del);
+    kbs = kbs.filter(kb => kb !== del);
     return of(del);
   }
 }

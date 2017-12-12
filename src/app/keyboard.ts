@@ -1,7 +1,7 @@
 import { Key } from './key';
 
 export class Keyboard {
-    id: number;
+    id: string;
     name: string;
     keys: Key[];
 }

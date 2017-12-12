@@ -9,9 +9,9 @@ import { KeyDetailComponent } from './key-detail/key-detail.component';
 const routes: Routes = [
   { path: '', redirectTo: '/keyboards', pathMatch: 'full' },
   { path: 'keyboards', component: KeyboardsListComponent },
-  { path: 'keyboards/:id', component: KeyboardDetailComponent },
-  { path: 'keys', component: KeysListComponent },
-  { path: 'keys/:id', component: KeyDetailComponent },
+  { path: 'keyboards/:kb_id', component: KeyboardDetailComponent },
+  { path: 'keyboards/:kb_id/keys', component: KeysListComponent },
+  { path: 'keyboards/:kb_id/keys/:k_id', component: KeyDetailComponent },
 ];
 
 @NgModule({

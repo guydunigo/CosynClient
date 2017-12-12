@@ -25,7 +25,7 @@ export class KeyboardDetailComponent implements OnInit {
   }
 
   getKeyboard(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
+    const id = this.route.snapshot.paramMap.get('kb_id');
 
     this.kbService.getKeyboard(id)
       .subscribe(kb => this.keyboard = kb);
