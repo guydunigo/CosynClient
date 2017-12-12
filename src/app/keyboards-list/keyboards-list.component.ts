@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { KeyboardService } from '../keyboard.service';
+import { ConfigKeyboardService } from '../config-keyboard.service';
 
 import { Keyboard } from '../keyboard';
 
@@ -12,7 +12,7 @@ import { Keyboard } from '../keyboard';
 export class KeyboardsListComponent implements OnInit {
   keyboards: Keyboard[];
 
-  constructor(private kbService: KeyboardService) { }
+  constructor(private kbService: ConfigKeyboardService) { }
 
   ngOnInit() {
     this.getKeyboards();

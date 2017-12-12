@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { KeyService } from '../key.service';
+import { ConfigKeyService } from '../config-key.service';
 
 import { Key } from '../key';
 
@@ -11,25 +11,27 @@ import { Key } from '../key';
 })
 export class KeysListComponent implements OnInit {
   keys: Key[];
+  kb_id: string;
 
   constructor(
     private route: ActivatedRoute,
-    private keyService: KeyService
+    private keyService: ConfigKeyService
   ) { }
 
   ngOnInit() {
+    this.kb_id = this.route.snapshot.paramMap.get('kb_id');
     this.getKeys();
   }
 
   getKeys(): void {
-    this.keyService.getKeys(this.route.snapshot.paramMap.get('kb_id'))
+    this.keyService.getKeys(this.kb_id)
       .subscribe(kbs => this.keys = kbs);
   }
 
   add(name: string): void {
     name = name.trim();
     if (!name) { return; }
-    this.keyService.addKey(this.route.snapshot.paramMap.get('kb_id'), { name } as Key)
+    this.keyService.addKey(this.kb_id, { name } as Key)
       .subscribe(kb => {
         this.keys.push(kb);
       });
@@ -37,6 +39,6 @@ export class KeysListComponent implements OnInit {
 
   delete(kb: Key): void {
     this.keys = this.keys.filter(k => k !== kb);
-    this.keyService.deleteKey(this.route.snapshot.paramMap.get('kb_id'), kb).subscribe();
+    this.keyService.deleteKey(this.kb_id, kb).subscribe();
   }
 }

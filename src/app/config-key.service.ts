@@ -12,7 +12,7 @@ import { KBS } from './mock-kbs';
 const kbs = KBS;
 
 @Injectable()
-export class KeyService {
+export class ConfigKeyService {
 
   constructor(
     private http: HttpClient

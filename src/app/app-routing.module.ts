@@ -7,11 +7,11 @@ import { KeysListComponent } from './keys-list/keys-list.component';
 import { KeyDetailComponent } from './key-detail/key-detail.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/keyboards', pathMatch: 'full' },
-  { path: 'keyboards', component: KeyboardsListComponent },
-  { path: 'keyboards/:kb_id', component: KeyboardDetailComponent },
-  { path: 'keyboards/:kb_id/keys', component: KeysListComponent },
-  { path: 'keyboards/:kb_id/keys/:k_id', component: KeyDetailComponent },
+  { path: '', redirectTo: 'config', pathMatch: 'full' },
+  { path: 'config', component: KeyboardsListComponent },
+  { path: 'config/:kb_id', component: KeyboardDetailComponent },
+  { path: 'config/:kb_id/keys', component: KeysListComponent },
+  { path: 'config/:kb_id/keys/:key_id', component: KeyDetailComponent },
 ];
 
 @NgModule({

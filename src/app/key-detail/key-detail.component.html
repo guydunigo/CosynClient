@@ -1,3 +1,18 @@
-<p>
-  key-detail works!
-</p>
+<div *ngIf="key">
+  <h2>{{ key.name | uppercase }}</h2>
+  <div>
+    <span>id: </span>
+    {{key.id}}
+  </div>
+  <div>
+    <label>name:
+      <input [(ngModel)]="key.name" placeholder="name" type="text">
+    </label>
+    <label>src:
+      <input [(ngModel)]="key.src" placeholder="source file" type="text">
+    </label>
+    <button (click)="play()">Test audio</button>
+  </div>
+  <button (click)="goBack()">go back</button>
+  <button (click)="save()">save</button>
+</div>

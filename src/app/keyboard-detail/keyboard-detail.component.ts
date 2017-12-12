@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { KeyboardService } from '../keyboard.service';
+import { ConfigKeyboardService } from '../config-keyboard.service';
 
 import { Keyboard } from '../keyboard';
 
@@ -16,7 +16,7 @@ export class KeyboardDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private kbService: KeyboardService,
+    private kbService: ConfigKeyboardService,
     private location: Location
   ) { }
 

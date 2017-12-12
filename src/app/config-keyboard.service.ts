@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
+import { catchError, map, tap } from 'rxjs/operators';
 
 import { Keyboard } from './keyboard';
 
@@ -10,8 +11,13 @@ import { KBS } from './mock-kbs';
 
 let kbs = KBS;
 
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
+
 @Injectable()
-export class KeyboardService {
+export class ConfigKeyboardService {
+  private dbUrl = 'localhost:4300/api/config';
 
   constructor(
     private http: HttpClient
