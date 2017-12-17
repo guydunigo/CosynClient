@@ -42,7 +42,8 @@ export class ConfigKeyboardService {
   }
 
   updateKeyboard(keyboard: Keyboard): Observable<any> {
-    return this.http.put(this.kbsUrl, keyboard, httpOptions).pipe(
+    const url = `${this.kbsUrl}/${keyboard.id}`;
+    return this.http.put(url, keyboard, httpOptions).pipe(
       catchError(this.handleError<any>('updateKeyboard'))
     );
   }

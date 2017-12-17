@@ -4,7 +4,10 @@
   <label>Key name:
     <input #keyName />
   </label>
-  <button (click)="add(keyName.value); keyName.value=''">
+  <label>Source:
+    <input #keySrc />
+  </label>
+  <button (click)="add(keyName.value, keySrc.value); keyName.value=''; keySrc.value=''">
     add
   </button>
 </div>
@@ -12,10 +15,7 @@
 <ul class="heroes">
   <li *ngFor="let key of keys">
     <a routerLink="/config/{{kb_id}}/keys/{{key.id}}">
-      <span class="badge">
-        {{key.id}}
-      </span>
-      {{key.name}}
+      {{key.name}} (<span class="badge">{{key.id}}</span>)
     </a>
     <button class="delete" title="delete key" (click)="delete(key)">
       x

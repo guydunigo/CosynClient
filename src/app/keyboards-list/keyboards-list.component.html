@@ -12,10 +12,7 @@
 <ul class="keyboards">
   <li *ngFor="let kb of keyboards">
     <a routerLink="/config/{{kb.id}}">
-      <span class="badge">
-        {{kb.id}}
-      </span>
-      {{kb.name}}
+      {{kb.name}} (<span class="badge">{{kb.id}}</span>)
     </a>
     <button class="delete" title="delete keyboard" (click)="delete(kb)">
       x

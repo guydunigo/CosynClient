@@ -28,10 +28,11 @@ export class KeysListComponent implements OnInit {
       .subscribe(kbs => this.keys = kbs);
   }
 
-  add(name: string): void {
+  add(name: string, src: string): void {
     name = name.trim();
+    src = src.trim();
     if (!name) { return; }
-    this.keyService.addKey(this.kb_id, { name } as Key)
+    this.keyService.addKey(this.kb_id, { name, src } as Key)
       .subscribe(kb => {
         this.keys.push(kb);
       });
