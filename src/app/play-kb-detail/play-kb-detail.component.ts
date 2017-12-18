@@ -1,19 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+
+import { Observable } from 'rxjs/Observable';
 
 import { PlayKeyboardService } from '../play-keyboard.service';
 
 import { Keyboard } from '../keyboard';
-import { KBS } from '../mock-kbs';
+import { Key } from '../key';
 
 @Component({
   selector: 'app-play-kb-detail',
   templateUrl: './play-kb-detail.component.html',
   styleUrls: ['./play-kb-detail.component.css']
 })
-export class PlayKbDetailComponent implements OnInit {
+export class PlayKbDetailComponent implements OnInit, OnDestroy {
   keyboard: Keyboard;
+  continue_polling = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -25,11 +28,18 @@ export class PlayKbDetailComponent implements OnInit {
     this.getKeyboard();
   }
 
+  ngOnDestroy() {
+    this.continue_polling = false;
+  }
+
   getKeyboard(): void {
     const kb_id = this.route.snapshot.paramMap.get('kb_id');
 
     this.kbService.getKeyboard(kb_id)
-      .subscribe(kb => this.keyboard = kb);
+      .subscribe(kb => {
+        this.keyboard = kb;
+        this.pollKeys();
+      });
   }
 
   goBack(): void {
@@ -48,5 +58,17 @@ export class PlayKbDetailComponent implements OnInit {
     const key = this.keyboard.keys.find(k => k.id === key_id);
     this.kbService.releaseKey(kb_id, key_id)
       .subscribe(ans => key.enabled = ans.enabled);
+  }
+
+  pollKeys(): void {
+    this.kbService.pollKeys(this.keyboard.id)
+      .subscribe(keys => {
+        if (keys) {
+          this.keyboard.keys = keys;
+        }
+        if (this.continue_polling) {
+          this.pollKeys();
+        }
+      });
   }
 }

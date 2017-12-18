@@ -78,4 +78,11 @@ export class PlayKeyboardService {
       catchError(this.handleError<any>('resetConfig'))
     );
   }
+
+  pollKeys(keyboard_id: string): Observable<any> {
+    const url = `${this.kbsUrl}/${keyboard_id}/keys_poll`;
+    return this.http.get(url, httpOptions).pipe(
+      catchError(this.handleError<any>('pollKeys'))
+    );
+  }
 }
