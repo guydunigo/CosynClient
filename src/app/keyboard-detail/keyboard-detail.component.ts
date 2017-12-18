@@ -39,4 +39,9 @@ export class KeyboardDetailComponent implements OnInit {
     this.kbService.updateKeyboard(this.keyboard)
       .subscribe(() => this.goBack());
   }
+
+  lock(): void {
+    this.kbService.lockKeyboard(this.keyboard.id)
+      .subscribe(() => this.goBack());
+  }
 }

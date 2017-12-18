@@ -12,8 +12,8 @@ const httpOptions = {
 };
 
 @Injectable()
-export class ConfigKeyboardService {
-  private kbsUrl = 'http://localhost:4300/api/config';
+export class PlayKeyboardService {
+  private kbsUrl = 'http://localhost:4300/api/play';
 
   constructor(
     private http: HttpClient
@@ -41,19 +41,6 @@ export class ConfigKeyboardService {
     );
   }
 
-  updateKeyboard(keyboard: Keyboard): Observable<any> {
-    return this.http.put(this.kbsUrl, keyboard, httpOptions).pipe(
-      catchError(this.handleError<any>('updateKeyboard'))
-    );
-  }
-
-  addKeyboard(keyboard: Keyboard): Observable<Keyboard> {
-    return this.http.post<Keyboard>(this.kbsUrl, keyboard, httpOptions)
-      .pipe(
-      catchError(this.handleError<Keyboard>('addKeyboard'))
-      );
-  }
-
   deleteKeyboard(keyboard: Keyboard | string): Observable<Keyboard> {
     const id = typeof Keyboard === 'string' ? keyboard as string : (keyboard as Keyboard).id;
 
@@ -61,6 +48,34 @@ export class ConfigKeyboardService {
 
     return this.http.delete<Keyboard>(url, httpOptions).pipe(
       catchError(this.handleError<Keyboard>('deleteKeyboard'))
+    );
+  }
+
+  pressKey(keyboard_id: string, key_id: string): Observable<any> {
+    const url = `${this.kbsUrl}/${keyboard_id}/keys/${key_id}/press`;
+    return this.http.put(url, {}, httpOptions).pipe(
+      catchError(this.handleError<any>('pressKey'))
+    );
+  }
+
+  releaseKey(keyboard_id: string, key_id: string): Observable<any> {
+    const url = `${this.kbsUrl}/${keyboard_id}/keys/${key_id}/release`;
+    return this.http.put(url, {}, httpOptions).pipe(
+      catchError(this.handleError<any>('releaseKey'))
+    );
+  }
+
+  setKeyVolume(keyboard_id: string, key_id: string, volume: number): Observable<any> {
+    const url = `${this.kbsUrl}/${keyboard_id}/keys/${key_id}/volume`;
+    return this.http.put(url, { volume }, httpOptions).pipe(
+      catchError(this.handleError<any>('setKeyVolume'))
+    );
+  }
+
+  resetPlay(): Observable<any> {
+    const url = `${this.kbsUrl}/reset`;
+    return this.http.get(url, httpOptions).pipe(
+      catchError(this.handleError<any>('resetConfig'))
     );
   }
 }

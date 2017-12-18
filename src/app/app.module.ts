@@ -10,9 +10,13 @@ import { KeyboardDetailComponent } from './keyboard-detail/keyboard-detail.compo
 import { KeyboardsListComponent } from './keyboards-list/keyboards-list.component';
 import { KeysListComponent } from './keys-list/keys-list.component';
 import { KeyDetailComponent } from './key-detail/key-detail.component';
+import { PlayKbListComponent } from './play-kb-list/play-kb-list.component';
+import { PlayKbDetailComponent } from './play-kb-detail/play-kb-detail.component';
 
 import { ConfigKeyboardService } from './config-keyboard.service';
 import { ConfigKeyService } from './config-key.service';
+import { PlayKeyboardService } from './play-keyboard.service';
+
 import { FormGroupName } from '@angular/forms/src/directives/reactive_directives/form_group_name';
 
 @NgModule({
@@ -21,7 +25,9 @@ import { FormGroupName } from '@angular/forms/src/directives/reactive_directives
     KeyboardDetailComponent,
     KeyboardsListComponent,
     KeysListComponent,
-    KeyDetailComponent
+    KeyDetailComponent,
+    PlayKbListComponent,
+    PlayKbDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +35,7 @@ import { FormGroupName } from '@angular/forms/src/directives/reactive_directives
     HttpClientModule,
     FormsModule
   ],
-  providers: [ConfigKeyboardService, ConfigKeyService],
+  providers: [ConfigKeyboardService, ConfigKeyService, PlayKeyboardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

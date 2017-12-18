@@ -1,0 +1,20 @@
+<div *ngIf="keyboard">
+  <h2>{{ keyboard.name | uppercase }}</h2>
+  <h5>
+    <span>id: </span>
+    {{keyboard.id}}
+  </h5>
+  <ul class="heroes">
+    <li *ngFor="let key of keyboard.keys">
+      <h3>{{key.name}} (<span class="badge">{{key.id}}</span>)
+      </h3>
+      <button *ngIf="!key.enabled" (click)="press(key.id)">
+        Press
+      </button>
+      <button *ngIf="key.enabled" (click)="release(key.id)">
+        Release
+      </button>
+    </li>
+  </ul>
+  <button (click)="goBack()">go back</button>
+</div>

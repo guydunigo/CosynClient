@@ -1,0 +1,12 @@
+<h2>Playable keyboards</h2>
+
+<ul class="keyboards">
+  <li *ngFor="let kb of keyboards">
+    <a routerLink="/play/{{kb.id}}">
+      {{kb.name}} (<span class="badge">{{kb.id}}</span>)
+    </a>
+    <button class="delete" title="delete keyboard" (click)="delete(kb)">
+      x
+    </button>
+  </li>
+</ul>

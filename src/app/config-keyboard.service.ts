@@ -64,4 +64,18 @@ export class ConfigKeyboardService {
       catchError(this.handleError<Keyboard>('deleteKeyboard'))
     );
   }
+
+  lockKeyboard(keyboard_id: string): Observable<any> {
+    const url = `${this.kbsUrl}/${keyboard_id}/lock`;
+    return this.http.put(url, {}, httpOptions).pipe(
+      catchError(this.handleError<any>('lockKeyboard'))
+    );
+  }
+
+  resetConfig(): Observable<any> {
+    const url = `${this.kbsUrl}/reset`;
+    return this.http.get(url, httpOptions).pipe(
+      catchError(this.handleError<any>('resetConfig'))
+    );
+  }
 }
