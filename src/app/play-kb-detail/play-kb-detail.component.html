@@ -4,6 +4,8 @@
     <span>id: </span>
     {{keyboard.id}}
   </h5>
+  <button (click)="mute(true)" *ngIf="!ismute">Mute</button>
+  <button (click)="mute(false)" *ngIf="ismute">Unmute</button>
   <ul class="heroes">
     <li *ngFor="let key of keyboard.keys">
       <h3>{{key.name}} (<span class="badge">{{key.id}}</span>)

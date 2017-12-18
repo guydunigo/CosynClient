@@ -9,6 +9,8 @@ import { PlayKeyboardService } from '../play-keyboard.service';
 import { Keyboard } from '../keyboard';
 import { Key } from '../key';
 
+import { Howl, Howler } from 'howler';
+
 @Component({
   selector: 'app-play-kb-detail',
   templateUrl: './play-kb-detail.component.html',
@@ -17,6 +19,8 @@ import { Key } from '../key';
 export class PlayKbDetailComponent implements OnInit, OnDestroy {
   keyboard: Keyboard;
   continue_polling = true;
+  sounds = new Map<string, Howl>();
+  ismute = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -30,6 +34,7 @@ export class PlayKbDetailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.continue_polling = false;
+    this.sounds.forEach(s => s.stop());
   }
 
   getKeyboard(): void {
@@ -38,8 +43,37 @@ export class PlayKbDetailComponent implements OnInit, OnDestroy {
     this.kbService.getKeyboard(kb_id)
       .subscribe(kb => {
         this.keyboard = kb;
+
+        this.updateKeysSounds();
+
         this.pollKeys();
       });
+  }
+
+  updateKeysSounds(): void {
+    this.keyboard.keys.forEach(
+      key => {
+        if (!(this.sounds[key.id])) {
+          this.sounds[key.id] = new Howl({
+            src: 'http://localhost:4300/' + key.src,
+            loop: true,
+            volume: key.volume,
+            autoplay: false
+          });
+        }
+
+        if (key.enabled && !this.sounds[key.id].playing()) {
+          this.sounds[key.id].play();
+        }
+        else if (!key.enabled && this.sounds[key.id].playing()) {
+          this.sounds[key.id].pause();
+        }
+      });
+  }
+
+  mute(muted: boolean): void {
+    Howler.mute(muted);
+    this.ismute = muted;
   }
 
   goBack(): void {
@@ -65,6 +99,7 @@ export class PlayKbDetailComponent implements OnInit, OnDestroy {
       .subscribe(keys => {
         if (keys) {
           this.keyboard.keys = keys;
+          this.updateKeysSounds();
         }
         if (this.continue_polling) {
           this.pollKeys();
