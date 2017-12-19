@@ -5,6 +5,8 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 
+import { environment } from '../environments/environment';
+
 import { Keyboard } from './keyboard';
 import { Key } from './key';
 
@@ -14,7 +16,7 @@ const httpOptions = {
 
 @Injectable()
 export class ConfigKeyService {
-  private kbsUrl = 'http://localhost:4300/api/config';
+  private kbsUrl = environment.serverAddr + 'api/config';
 
   constructor(
     private http: HttpClient

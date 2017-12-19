@@ -5,6 +5,8 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 
+import { environment } from '../environments/environment';
+
 import { Keyboard } from './keyboard';
 
 const httpOptions = {
@@ -13,7 +15,7 @@ const httpOptions = {
 
 @Injectable()
 export class PlayKeyboardService {
-  private kbsUrl = 'http://localhost:4300/api/play';
+  private kbsUrl = environment.serverAddr + 'api/play';
 
   constructor(
     private http: HttpClient

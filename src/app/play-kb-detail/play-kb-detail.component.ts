@@ -6,6 +6,8 @@ import { Observable } from 'rxjs/Observable';
 
 import { PlayKeyboardService } from '../play-keyboard.service';
 
+import { environment } from '../../environments/environment';
+
 import { Keyboard } from '../keyboard';
 import { Key } from '../key';
 
@@ -55,10 +57,12 @@ export class PlayKbDetailComponent implements OnInit, OnDestroy {
       key => {
         if (!(this.sounds[key.id])) {
           this.sounds[key.id] = new Howl({
-            src: 'http://localhost:4300/' + key.src,
+            src: environment.serverAddr + key.src,
             loop: true,
             volume: key.volume,
-            autoplay: false
+            autoplay: false,
+            onplay() {console.log("playing")},
+            onplayerror() {console.log("play error")}
           });
         }
 
@@ -71,28 +75,32 @@ export class PlayKbDetailComponent implements OnInit, OnDestroy {
       });
   }
 
-  mute(muted: boolean): void {
-    Howler.mute(muted);
-    this.ismute = muted;
-  }
-
-  goBack(): void {
-    this.location.back();
+  mute(): void {
+    this.ismute = !this.ismute;
+    Howler.mute(this.ismute);
   }
 
   press(key_id: string): void {
     const kb_id = this.route.snapshot.paramMap.get('kb_id');
     const key = this.keyboard.keys.find(k => k.id === key_id);
-    this.kbService.pressKey(kb_id, key_id)
+
+    let method;
+    if (key.enabled === true) {
+      method = 'releaseKey';
+    }
+    else {
+      method = 'pressKey';
+    }
+    this.kbService[method](kb_id, key_id)
       .subscribe(ans => key.enabled = ans.enabled);
   }
 
-  release(key_id: string): void {
+  /*release(key_id: string): void {
     const kb_id = this.route.snapshot.paramMap.get('kb_id');
     const key = this.keyboard.keys.find(k => k.id === key_id);
     this.kbService.releaseKey(kb_id, key_id)
       .subscribe(ans => key.enabled = ans.enabled);
-  }
+  }*/
 
   pollKeys(): void {
     this.kbService.pollKeys(this.keyboard.id)

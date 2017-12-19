@@ -1,8 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
+import { Howl } from 'howler';
+
 import { ConfigKeyService } from '../config-key.service';
+
+import { environment } from '../../environments/environment';
 
 import { Key } from '../key';
 
@@ -11,9 +15,11 @@ import { Key } from '../key';
   templateUrl: './key-detail.component.html',
   styleUrls: ['./key-detail.component.css']
 })
-export class KeyDetailComponent implements OnInit {
+export class KeyDetailComponent implements OnInit, OnDestroy {
   @Input() key: Key;
   kb_id: string;
+  sound: Howl;
+  testSoundSucessful = -1;
 
   constructor(
     private route: ActivatedRoute,
@@ -24,6 +30,12 @@ export class KeyDetailComponent implements OnInit {
   ngOnInit() {
     this.kb_id = this.route.snapshot.paramMap.get('kb_id');
     this.getKey();
+  }
+
+  ngOnDestroy() {
+    if (this.sound) {
+      this.sound.stop();
+    }
   }
 
   getKey(): void {
@@ -42,7 +54,19 @@ export class KeyDetailComponent implements OnInit {
       .subscribe(() => this.goBack());
   }
 
-  play(): void {
-    throw Error('Not implemented !');
+  testSound(): void {
+    if (this.sound) {
+      this.sound.stop();
+    }
+
+    const me = this;
+
+    this.sound = new Howl({
+      src: environment.serverAddr + this.key.src,
+      volume: 1,
+      onloaderror() { me.testSoundSucessful = 0; },
+      onload() { me.testSoundSucessful = 1; }
+    });
+    this.sound.play();
   }
 }

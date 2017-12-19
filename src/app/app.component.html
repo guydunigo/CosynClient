@@ -1,10 +1,14 @@
-<div>
-  <h1>Welcome to {{ title }}!</h1>
-  <nav>
-    <a routerLink="/play">Play</a>
-    <a routerLink="/config">Config keyboards</a>
-    <button (click)="resetConfDb()">Reset conf db</button>
-    <button (click)="resetPlayDb()">Reset play db</button>
+<div class="container-fluid">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">CoSyn</a>
+    <div class="navbar-nav">
+          <a class="nav-item nav-link" routerLink="/play">Playable keyboards</a>
+          <a class="nav-item nav-link" routerLink="/config">Configure keyboards</a>
+          <a class="nav-item nav-link" (click)="resetConfDb()" role="button">Reset conf db</a>
+          <a class="nav-item nav-link" (click)="resetPlayDb()" role="button">Reset play db</a>
+    </div>
   </nav>
-  <router-outlet></router-outlet>
+  <div class="container">
+      <router-outlet></router-outlet>
+  </div>
 </div>

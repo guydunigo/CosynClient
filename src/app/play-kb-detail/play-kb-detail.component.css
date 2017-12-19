@@ -1,0 +1,20 @@
+document, body {
+    background-color: #333;
+}
+
+.key {
+    border: 1px solid black;
+    min-height: 30vh;
+    background-color: white;
+}
+
+.key:nth-child(even) {
+    background-color: black;
+    color: white;
+}
+
+.key.pressed {
+    box-shadow: 2px 5px 5px #555;
+    /*left: -0.1em;*/
+    top: -0.5em;
+}

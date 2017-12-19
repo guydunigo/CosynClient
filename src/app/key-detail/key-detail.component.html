@@ -5,14 +5,15 @@
     {{key.id}}
   </div>
   <div>
+    <button (click)="save()">save</button>
     <label>name:
       <input [(ngModel)]="key.name" placeholder="name" type="text">
     </label>
     <label>src:
-      <input [(ngModel)]="key.src" placeholder="source file" type="text">
+      <input [ngClass]="{testSoundSucessful: testSoundSucessful === 1, testSoundFailed: testSoundSucessful === 0}" [(ngModel)]="key.src" placeholder="source file" type="text">
     </label>
-    <button (click)="play()">Test audio</button>
+    <button (click)="testSound()">Test sound</button>
+    <div *ngIf="testSoundSucessful === 1" class="alert alert-success">Sound working !</div>
+    <div *ngIf="testSoundSucessful === 0" class="alert alert-danger">Sound error, check source !</div>
   </div>
-  <button (click)="goBack()">go back</button>
-  <button (click)="save()">save</button>
 </div>

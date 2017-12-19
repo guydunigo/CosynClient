@@ -4,13 +4,12 @@
       <span>id: </span>
       {{keyboard.id}}
     </div>
+    <button (click)="save()">save</button>
+    <button (click)="lock()">lock</button>
     <div>
       <label>name:
         <input [(ngModel)]="keyboard.name" placeholder="name" type="text">
       </label>
     </div>
     <app-keys-list></app-keys-list>
-    <button (click)="goBack()">go back</button>
-    <button (click)="save()">save</button>
-    <button (click)="lock()">lock</button>
   </div>
