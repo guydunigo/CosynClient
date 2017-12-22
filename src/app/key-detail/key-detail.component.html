@@ -1,19 +1,26 @@
-<div *ngIf="key">
-  <h2>{{ key.name | uppercase }}</h2>
-  <div>
-    <span>id: </span>
-    {{key.id}}
+<div class="container" *ngIf="key">
+  <div class="row mt-4">
+    <div class="col-sm-12">
+      <button class="btn btn-block btn-primary" (click)="save()">save</button>
+    </div>
   </div>
-  <div>
-    <button (click)="save()">save</button>
-    <label>name:
-      <input [(ngModel)]="key.name" placeholder="name" type="text">
-    </label>
-    <label>src:
-      <input [ngClass]="{testSoundSucessful: testSoundSucessful === 1, testSoundFailed: testSoundSucessful === 0}" [(ngModel)]="key.src" placeholder="source file" type="text">
-    </label>
-    <button (click)="testSound()">Test sound</button>
-    <div *ngIf="testSoundSucessful === 1" class="alert alert-success">Sound working !</div>
-    <div *ngIf="testSoundSucessful === 0" class="alert alert-danger">Sound error, check source !</div>
+  <div class="row mt-4">
+    <div class="col-md-12 col-xs-12">
+      <h1 class="text-center">{{ key.name | uppercase }}</h1>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-sm-12">
+      <label>name:
+        <input [(ngModel)]="key.name" placeholder="name" type="text">
+      </label>
+      <label>src:
+        <input [(ngModel)]="key.src"
+          placeholder="source file" type="text">
+      </label>
+      <button [ngClass]="{'btn-success': testSoundSucessful === 1, 'btn-danger': testSoundSucessful === 0}"  (click)="testSound()">Test sound</button>
+      <div *ngIf="testSoundSucessful === 1" class="alert alert-success">Sound working !</div>
+      <div *ngIf="testSoundSucessful === 0" class="alert alert-danger">Sound error, check source !</div>
+    </div>
   </div>
 </div>

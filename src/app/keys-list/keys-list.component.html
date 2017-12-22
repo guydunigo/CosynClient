@@ -1,24 +1,34 @@
-<h2>List of keys</h2>
-
-<div>
-  <label>Key name:
-    <input #keyName />
-  </label>
-  <label>Source:
-    <input #keySrc />
-  </label>
-  <button (click)="add(keyName.value, keySrc.value); keyName.value=''; keySrc.value=''">
-    add
-  </button>
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-sm-12 col-xs-12">
+      <h1 class="text-center">Keys from keyboard {{snapshot.paramMap.get('kb_id')}}</h1>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-sm-12">
+      <label>Key name:
+        <input #keyName />
+      </label>
+      <label>Source:
+        <input #keySrc />
+      </label>
+      <button (click)="add(keyName.value, keySrc.value); keyName.value=''; keySrc.value=''">
+        add
+      </button>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <ul>
+        <li *ngFor="let key of keys">
+          <a routerLink="/config/{{kb_id}}/keys/{{key.id}}">
+            {{key.name}} (<span class="badge">{{key.id}}</span>)
+          </a>
+          <button title="delete key" (click)="delete(key)">
+            x
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>
-
-<ul class="heroes">
-  <li *ngFor="let key of keys">
-    <a routerLink="/config/{{kb_id}}/keys/{{key.id}}">
-      {{key.name}} (<span class="badge">{{key.id}}</span>)
-    </a>
-    <button class="delete" title="delete key" (click)="delete(key)">
-      x
-    </button>
-  </li>
-</ul>

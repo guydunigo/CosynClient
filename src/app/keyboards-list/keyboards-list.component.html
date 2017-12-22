@@ -1,21 +1,31 @@
-<h2>Available keyboards</h2>
-
-<div>
-  <label>Keyboard name:
-    <input #kbName />
-  </label>
-  <button (click)="add(kbName.value); kbName.value=''">
-    add
-  </button>
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-md-12 col-xs-12">
+      <h1 class="text-center">Configure keyboards</h1>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-sm-12">
+      <label>Keyboard name:
+        <input #kbName />
+      </label>
+      <button (click)="add(kbName.value); kbName.value=''">
+        add
+      </button>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-sm-12">
+      <ul class="keyboards">
+        <li *ngFor="let kb of keyboards">
+          <a routerLink="/config/{{kb.id}}">
+            {{kb.name}} (<span class="badge">{{kb.id}}</span>)
+          </a>
+          <button class="delete" title="delete keyboard" (click)="delete(kb)">
+            x
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>
-
-<ul class="keyboards">
-  <li *ngFor="let kb of keyboards">
-    <a routerLink="/config/{{kb.id}}">
-      {{kb.name}} (<span class="badge">{{kb.id}}</span>)
-    </a>
-    <button class="delete" title="delete keyboard" (click)="delete(kb)">
-      x
-    </button>
-  </li>
-</ul>

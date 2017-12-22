@@ -1,15 +1,27 @@
-<div *ngIf="keyboard">
-    <h2>{{ keyboard.name | uppercase }}</h2>
-    <div>
-      <span>id: </span>
-      {{keyboard.id}}
+<div class="container" *ngIf="keyboard">
+    <div class="row mt-4">
+      <div class="col-sm-6">
+          <button class="btn btn-block btn-primary" (click)="save()">save</button>
+      </div>
+      <div class="col-sm-6">
+          <button class="btn btn-block btn-dark" (click)="lock()">lock</button>
+      </div>
     </div>
-    <button (click)="save()">save</button>
-    <button (click)="lock()">lock</button>
-    <div>
-      <label>name:
-        <input [(ngModel)]="keyboard.name" placeholder="name" type="text">
-      </label>
+  <div class="row mt-4">
+    <div class="col-md-12 col-xs-12">
+      <h1 class="text-center">{{ keyboard.name | uppercase }}</h1>
     </div>
-    <app-keys-list></app-keys-list>
   </div>
+  <div class="row mt-4">
+    <div class="col-sm-12">
+        <label>name:
+          <input [(ngModel)]="keyboard.name" placeholder="name" type="text">
+        </label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+        <app-keys-list></app-keys-list>
+    </div>
+  </div>
+</div>

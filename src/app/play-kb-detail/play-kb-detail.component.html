@@ -1,25 +1,25 @@
-<div class="container play-kb-detail" *ngIf="keyboard">
-  <div class="row">
-    <div class="col-sm-12 my-2">
+<div class="container" *ngIf="keyboard">
+  <div class="row mt-4">
+    <div class="col-sm-12">
       <button class="btn btn-dark btn-block" (click)="mute()">
         <span *ngIf="!ismute">Mute</span>
         <span *ngIf="ismute">Unmute</span>
       </button>
     </div>
   </div>
-  <div class="row my-2">
+  <div class="row mt-4">
     <div class="col-md-12 col-xs-12">
       <h1 class="text-center">{{ keyboard.name | uppercase }}</h1>
     </div>
   </div>
-  <div class="row my-5">
-    <div class="col-sm-1 key mr-1" [ngClass]="{pressed: !key.enabled}" *ngFor="let key of keyboard.keys" (click)="press(key.id)">
-      <h3 class="text-center m-auto">{{key.name}}</h3>
+  <div class="row my-2 justify-content-center">
+    <div class="col-sm-1 col-xs-1 key mr-1 mb-1" [ngClass]="{pressed: !key.enabled}" *ngFor="let key of keyboard.keys" (click)="press(key.id)">
+      <h4 class="text-center">{{key.name.slice(0,3)}}{{key.name.length > 3 ? '...' : ''}}</h4>
       <h5 *ngIf="key.id !== key.name" class="text-center">{{key.id}}</h5>
       <!--<h1 class="text-center">
-                  <span *ngIf="!(key.enabled)">Press</span>
-                  <span *ngIf="(key.enabled)">Release</span>
-                </h1>-->
+                        <span *ngIf="!(key.enabled)">Press</span>
+                        <span *ngIf="(key.enabled)">Release</span>
+                      </h1>-->
     </div>
   </div>
 </div>

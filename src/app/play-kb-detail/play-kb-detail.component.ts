@@ -60,9 +60,7 @@ export class PlayKbDetailComponent implements OnInit, OnDestroy {
             src: environment.serverAddr + key.src,
             loop: true,
             volume: key.volume,
-            autoplay: false,
-            onplay() {console.log("playing")},
-            onplayerror() {console.log("play error")}
+            autoplay: false
           });
         }
 
