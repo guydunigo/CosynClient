@@ -15,10 +15,9 @@
         <input [(ngModel)]="key.name" placeholder="name" type="text">
       </label>
       <label>src:
-        <input [(ngModel)]="key.src"
-          placeholder="source file" type="text">
+        <input [(ngModel)]="key.src" (click)="resetTest()" placeholder="source file" type="text">
       </label>
-      <button [ngClass]="{'btn-success': testSoundSucessful === 1, 'btn-danger': testSoundSucessful === 0}"  (click)="testSound()">Test sound</button>
+      <button [ngClass]="{'btn-success': testSoundSucessful === 1, 'btn-danger': testSoundSucessful === 0}" (click)="testSound()">Test sound</button>
       <div *ngIf="testSoundSucessful === 1" class="alert alert-success">Sound working !</div>
       <div *ngIf="testSoundSucessful === 0" class="alert alert-danger">Sound error, check source !</div>
     </div>

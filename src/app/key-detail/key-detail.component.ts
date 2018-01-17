@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -24,7 +24,8 @@ export class KeyDetailComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private keyService: ConfigKeyService,
-    private location: Location
+    private location: Location,
+    private changeDetectorRef: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -54,6 +55,15 @@ export class KeyDetailComponent implements OnInit, OnDestroy {
       .subscribe(() => this.goBack());
   }
 
+  resetTest(): void {
+    if (this.sound) {
+      this.sound.stop();
+    }
+
+    this.testSoundSucessful = -1;
+    this.changeDetectorRef.detectChanges();
+  }
+
   testSound(): void {
     if (this.sound) {
       this.sound.stop();
@@ -64,8 +74,8 @@ export class KeyDetailComponent implements OnInit, OnDestroy {
     this.sound = new Howl({
       src: environment.serverAddr + this.key.src,
       volume: 1,
-      onloaderror() { me.testSoundSucessful = 0; },
-      onload() { me.testSoundSucessful = 1; }
+      onloaderror() { me.testSoundSucessful = 0; me.changeDetectorRef.detectChanges(); },
+      onload() { me.testSoundSucessful = 1; me.changeDetectorRef.detectChanges(); }
     });
     this.sound.play();
   }
